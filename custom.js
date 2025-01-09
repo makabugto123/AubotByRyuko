@@ -1,3 +1,5 @@
+const axios = require("axios");
+
 module.exports = async ({ api, event }) => {
   const logger = require('./main/utility/logs.js');
   
@@ -36,24 +38,32 @@ module.exports = async ({ api, event }) => {
     }
   }
   async function greetings(config) {
+  
+  const apiUrl = `https://kaiz-apis.gleeze.com/api/bible`;
+
+        const response = await axios.get(apiUrl);
+        const textar = response.data.verse[0];
+        const verse = response.data.reference;
+        const text = textar.text;
+        
     if (config.status) {
       try {
       const nam = [
         {
           timer: '5:00:00 AM',
-          message: [`${config.morning}`]
+          message: [`Verse: ${verse}\n\nContext: ${text}\n\n${config.morning}`]
         },
         {
           timer: '11:00:00 AM',
-          message: [`${config.afternoon}`]
+          message: [`Verse: ${verse}\n\nContext: ${text}\n\n${config.afternoon}`]
         },
         {
           timer: '6:00:00 PM',
-          message: [`${config.evening}`]
+          message: [`Verse: ${verse}\n\nContext: ${text}\n\n${config.evening}`]
         },
         {
           timer: '10:00:00 PM',
-          message: [`${config.sleep}`]
+          message: [`Verse: ${verse}\n\nContext ${text}\n\n${config.sleep}`]
         }
       ];
       const userID = await api.getCurrentUserID();
