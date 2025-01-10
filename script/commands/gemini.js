@@ -22,14 +22,19 @@ function formatText(t) {
 }
 
 module.exports.config = {
-  name: "gemini",
-  role: 0,
-  credits: "hazey",
-  description: "Talk to Gemini-large(flash-pro)",
-  hasPrefix: false,
-  version: "5.6.7",
-  aliases: ["bard"],
-  usage: "gemini [prompt]"
+  name: `gemini`,
+  version: "1.1.0",
+  permission: 0,
+  credits: "ryuko",
+  description: "",
+  prefix: false,
+  premium: false,
+  category: "without prefix",
+  usage: ``,
+  cooldowns: 3,
+  dependency: {
+
+  }
 };
 
 module.exports.run = async function ({ api: a, event: e, args: ar }) {
