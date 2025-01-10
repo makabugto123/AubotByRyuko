@@ -52,25 +52,27 @@ module.exports.run = async function ({ api: a, event: e, args: ar }) {
   }
 
   const t = await new Promise(r => {
-    a.sendMessage("🗨 | 𝙶𝚎𝚖𝚒𝚗𝚒 𝙰𝙸 𝚒𝚜 𝚝𝚑𝚒𝚗𝚔𝚒𝚗𝚐 𝚙𝚕𝚎𝚊𝚜𝚎 𝚠𝚊𝚒𝚝...", e.threadID, (err, i) => r(i));
+    a.sendMessage("🗨 | 𝙶𝙿𝚃𝟺 𝙰𝙸 𝚒𝚜 𝚝𝚑𝚒𝚗𝚔𝚒𝚗𝚐 𝚙𝚕𝚎𝚊𝚜𝚎 𝚠𝚊𝚒𝚝...", e.threadID, (err, i) => r(i));
   });
 
   try {
     if (e.type === "message_reply") {
       if (e.messageReply.attachments[0]?.type === "photo") {
         const i = encodeURIComponent(e.messageReply.attachments[0].url);
-        const r = (await ax.get(`https://kaiz-apis.gleeze.com/api/gemini-vision?q=${p}&uid=${e.senderID}&imageUrl=${i}`)).data;
+        const r = (await ax.get(`https://kaiz-apis.gleeze.com/api/gpt-4o-pro?q=${p}&uid=${e.senderID}&imageUrl=${i}`)).data;
 
-        const fr = `${sy} | 𝗚𝗘𝗠𝗜𝗡𝗜-𝗙𝗟𝗔𝗦𝗛 𝟭.𝟱\n━━━━━━━━━━━━━━━━━━\n${r.response}\n━━━━━━━━━━━━━━━━━━`;
+
+        const fr = `${sy} | 𝗚𝗣𝗧𝟰-𝟰𝗼-𝗣𝗥𝗢\n━━━━━━━━━━━━━━━━━━\n${r.response}\n━━━━━━━━━━━━━━━━━━`;
         a.unsendMessage(t.messageID);
         return a.sendMessage(fr, e.threadID, e.messageID);
       } else {
         a.unsendMessage(t.messageID);
-        return a.sendMessage('Please reply to an image.', e.threadID);
+        return a.sendMessage('𝘗𝘭𝘦𝘢𝘴𝘦 𝘳𝘦𝘱𝘭𝘺 𝘵𝘰 𝘢𝘯 𝘪𝘮𝘢𝘨𝘦.', e.threadID);
       }
     }
 
-    const r = (await ax.get(`https://wieginews3787.onrender.com/gemini?question=${p}`)).data;
+    const r = (await ax.get(`https://kaiz-apis.gleeze.com/api/gpt-4o?q=${p}&uid=${e.senderID}`)).data;
+    
     const at = [];
 
     if (r.generated_image?.length > 0) {
@@ -91,11 +93,11 @@ module.exports.run = async function ({ api: a, event: e, args: ar }) {
       }
     }
 
-    const fa = formatText(r.answer);
+    const fa = formatText(r.response);
     a.unsendMessage(t.messageID);
 
     a.sendMessage({
-      body: `${sy} | 𝗚𝗘𝗠𝗜𝗡𝗜-𝗣𝗥𝗢\n━━━━━━━━━━━━━━━━━━\n${fa}\n━━━━━━━━━━━━━━━━━━`,
+      body: `${sy} | 𝗚𝗣𝗧-𝟰𝗼\n━━━━━━━━━━━━━━━━━━\n${fa}\n━━━━━━━━━━━━━━━━━━`,
       attachment: at,
     }, e.threadID, (err) => {
       if (!err) {
