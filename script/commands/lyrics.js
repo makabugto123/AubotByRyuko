@@ -32,9 +32,7 @@ module.exports.config = {
   category: "without prefix",
   usage: ``,
   cooldowns: 3,
-  dependency: {
-
-  }
+  dependency: {}
 };
 
 module.exports.run = async function ({ api: a, event: e, args: ar }) {
@@ -56,18 +54,13 @@ module.exports.run = async function ({ api: a, event: e, args: ar }) {
   });
 
   try {
+    const res = (await ax.get(`https://kaiz-apis.gleeze.com/api/lyrics?song=${p}`)).data;
 
-    const r = (await ax.get(`https://kaiz-apis.gleeze.com/api/lyrics?song=${p}`)).data;
-    
     const at = [];
+    const fb = formatText(res.title);
+    const fc = formatText(res.artist);
+    const fa = formatText(res.lyrics);
 
-        } catch (error) {}
-      }
-    }
-    
-    const fb = formatText(r.title);
-    const fc = formatText(r.artist);
-    const fa = formatText(r.lyrics);
     a.unsendMessage(t.messageID);
 
     a.sendMessage({
@@ -78,7 +71,9 @@ module.exports.run = async function ({ api: a, event: e, args: ar }) {
         at.forEach((fl) => {
           try {
             f.unlinkSync(fl.path);
-          } catch (error) {}
+          } catch (error) {
+            console.error(error);
+          }
         });
       }
     });
