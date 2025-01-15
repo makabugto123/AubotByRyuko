@@ -65,7 +65,7 @@ module.exports.run = async function ({ api, event }) {
 
 		return api.sendMessage(
 			"SYSTEM INFORMATION\n\n" +
-			"The server running for " + months + "months," + days + "days," + hours "hours," + minutes + "minutes," + seconds + "seconds\n\n" +
+			"The server running for " + months + "months," + days + "days," + hours + "hours," + minutes + "minutes," + seconds + "seconds\n\n" +
 			"CPU\n" +
 			"cpu model : " + manufacturer + " " + brand + " " + speedMax + "GHz\n" +
 			"cores : " + cores + "\n" +
