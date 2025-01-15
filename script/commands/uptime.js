@@ -37,12 +37,19 @@ module.exports.run = async function ({ api, event }) {
 		var { platform: OSPlatform, build: OSBuild } = await osInfo();;
 		var disk = [], i = 1;
 
-		var hours = Math.floor(uptime / (60 * 60));
-		var minutes = Math.floor((uptime % (60 * 60)) / 60);
-		var seconds = Math.floor(uptime % 60);
-		if (hours < 10) hours = "0" + hours;
-		if (minutes < 10) minutes = "0" + minutes;
-		if (seconds < 10) seconds = "0" + seconds;
+       var days = Math.floor(uptime / (24 * 60 * 60));
+       var hours = Math.floor((uptime % (24 * 60 * 60)) / (60 * 60));
+       var minutes = Math.floor((uptime % (60 * 60)) / 60);
+       var seconds = Math.floor(uptime % 60);
+
+// Add leading zeros
+      if (days < 10) days = "0" + days;
+      if (hours < 10) hours = "0" + hours;
+      if (minutes < 10) minutes = "0" + minutes;
+      if (seconds < 10) seconds = "0" + seconds;
+
+
+
 
 		for (const singleDisk of diskInfo) {
 			disk.push(
@@ -73,7 +80,7 @@ module.exports.run = async function ({ api, event }) {
 			"OPERATING SYSTEM\n" +
 			"platform : " + OSPlatform +
 			"\nbuild : " + OSBuild +
-			"\nuptime : " + hours + ":" + minutes + ":" + seconds +
+			"\nuptime : " + days + ":" + hours + ":" + minutes + ":" + seconds +
 			"\nping : " + (Date.now() - timeStart) + "ms",
 			event.threadID, event.messageID
 		)
