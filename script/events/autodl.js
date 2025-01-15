@@ -24,19 +24,12 @@ module.exports.run = async function({ api, event, args, Threads, botname, prefix
 
 
 
-    const apiUrl1 = `https://betadash-search-download.vercel.app/yt?search=${encodeURIComponent(search)}`;
+    const apiUrl = `https://yt-video-production.up.railway.app/ytdl?url=${encodeURIComponent(search)}`;
     
     
     
 
-    try {
-    
-    const response1 = await axios.get(apiUrl1);
-    const data1 = response1.data;
-    const yturl = data1[0].url;
-    const channel = data1[0].channelName;
-    
-        const apiUrl = `https://yt-video-production.up.railway.app/ytdl?url=${encodeURIComponent(yturl)}`;
+    try {            
     
         const response = await axios.get(apiUrl);
         const maanghang = response.data;
