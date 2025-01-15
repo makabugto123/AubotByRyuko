@@ -1,5 +1,5 @@
 module.exports.config = {
-	name: "up",
+	name: "uptime",
 	version: "1.0.1",
 	permssion: 0,
 	prefix: false,
@@ -36,13 +36,15 @@ module.exports.run = async function ({ api, event }) {
 		var { total: totalMem, available: availableMem } = await mem();
 		var { platform: OSPlatform, build: OSBuild } = await osInfo();;
 		var disk = [], i = 1;
-
+		
+		var months = Math.floor(uptime / (30.44 * 24 * 60 * 60));
        var days = Math.floor(uptime / (24 * 60 * 60));
        var hours = Math.floor((uptime % (24 * 60 * 60)) / (60 * 60));
        var minutes = Math.floor((uptime % (60 * 60)) / 60);
        var seconds = Math.floor(uptime % 60);
 
 // Add leading zeros
+      if (months < 10) months = "0" + months;
       if (days < 10) days = "0" + days;
       if (hours < 10) hours = "0" + hours;
       if (minutes < 10) minutes = "0" + minutes;
@@ -63,6 +65,7 @@ module.exports.run = async function ({ api, event }) {
 
 		return api.sendMessage(
 			"SYSTEM INFORMATION\n\n" +
+			"The server running for " + months + "months," + days + "days," + hours "hours," + minutes + "minutes," + seconds + "seconds\n\n" +
 			"CPU\n" +
 			"cpu model : " + manufacturer + " " + brand + " " + speedMax + "GHz\n" +
 			"cores : " + cores + "\n" +
@@ -80,7 +83,6 @@ module.exports.run = async function ({ api, event }) {
 			"OPERATING SYSTEM\n" +
 			"platform : " + OSPlatform +
 			"\nbuild : " + OSBuild +
-			"\nuptime : " + days + ":" + hours + ":" + minutes + ":" + seconds +
 			"\nping : " + (Date.now() - timeStart) + "ms",
 			event.threadID, event.messageID
 		)
