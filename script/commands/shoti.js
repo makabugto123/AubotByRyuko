@@ -27,6 +27,9 @@ module.exports.run = async function({ api, event, args }) {
     }*/
 
     const apiUrl = `https://kaiz-apis.gleeze.com/api/shoti`;
+    
+    
+    api.sendMessage(`🔍𝙵𝚒𝚗𝚍𝚒𝚗𝚐 𝚃𝚒𝚔𝚝𝚘𝚔 𝙶𝚒𝚛𝚕 𝚅𝚒𝚍𝚎𝚘...`, event.threadID);
 
     try {
         const response = await axios.get(apiUrl);
